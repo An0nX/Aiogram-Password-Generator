@@ -66,7 +66,12 @@ async def buttons(message: types.Message):
             password =''
             for i in range(length):
                 password += random.choice(chars)
-            await bot.send_message(user_id, "Твой пароль: <code>{}</code>".format(password), ParseMode.HTML, reply_markup=key)
+            try:
+                from telegram import ParseMode
+                await bot.send_message(user_id, "Твой пароль: <code>{}</code>".format(password), ParseMode.HTML, reply_markup=key)
+            except Exception as error:
+                await bot.send_message(user_id, "Твой пароль: ", reply_markup=key)
+                await bot.send_message(user_id, password, reply_markup=key)
     if message.text == 'Помощь':
         print(user_id, 'открыл раздел помощи')
         global shelp
@@ -112,7 +117,12 @@ async def generate_password(message: types.Message):
         password =''
         for i in range(length):
             password += random.choice(chars)
-        await bot.send_message(user_id, "Твой пароль: <code>{}</code>".format(password), ParseMode.HTML, reply_markup=key)
+        try:
+            from telegram import ParseMode
+            await bot.send_message(user_id, "Твой пароль: <code>{}</code>".format(password), ParseMode.HTML, reply_markup=key)
+        except Exception as error:
+            await bot.send_message(user_id, "Твой пароль: ", reply_markup=key)
+            await bot.send_message(user_id, password, reply_markup=key)
 
 @dp.message_handler(commands="sourse")
 async def sourse(message: types.Message):
